@@ -4,6 +4,5 @@ from .models import Post
 
 
 def post_list(request):
-    post = Post.objects.all()
-    return HttpResponse(post)
-#    return render(request, 'post/post_list.html', {'posts': posts})
+    posts = Post.objects.all()
+    return render(request, 'post/post_list.html', {'posts': posts})

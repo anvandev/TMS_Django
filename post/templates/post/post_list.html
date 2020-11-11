@@ -1,0 +1,26 @@
+{% load static %}
+
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title> Django Blog </title>
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+        <link href="https://fonts.googleapis.com/css?family=Lobster&subset=latin,cyrillic" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" href="{% static 'css/post.css' %}">
+    </head>
+
+    <body>
+        <div>
+            <h1><a href="/post/list/">Django Blog</a></h1>
+        </div>
+
+        {% for post in posts%}
+            <div>
+                <h1><a href="">{{ post.title }}</a></h1>
+                <p>{{ post.author }}</p>
+                <p>{{ post.created_date }}</p>
+            </div>
+        {% endfor %}
+    </body>
+</html>
