@@ -1,14 +1,12 @@
 {% extends 'post/base.html' %}
 
 {% block content %}
-    {% for post in posts %}
         <div class="post">
-            <h1><a href="{% url 'post_detail' post_pk=post.pk %}">{{ post.title }}</a></h1>
+            <h1><a href="">{{ post.title }}</a></h1>
             <div class="date">
                 <p> Создан: {{ post.created_date }}</p>
                 <p> Автор: {{ post.author }}</p>
             </div>
-<!--            <p>{{ post.text|linebreaksbr }}</p>-->
+            <p>{{ post.text|linebreaksbr }}</p>
         </div>
-    {% endfor %}
 {% endblock %}
