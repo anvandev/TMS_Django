@@ -43,3 +43,9 @@ def post_edit(request, post_pk):
     else:
         form = PostForm(instance=post)
     return render(request, 'post/post_edit.html', {'form': form})
+
+
+def post_remove(request, post_pk):
+    post = get_object_or_404(Post, pk=post_pk)
+    post.delete()
+    return redirect('post_list')

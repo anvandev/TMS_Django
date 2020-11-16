@@ -4,6 +4,7 @@
         <div class="post">
             {% if user.is_authenticated and user == post.author %}
                 <a class="btn btn-default" href="{% url 'post_edit' post_pk=post.pk %}"><span class="glyphicon glyphicon-pencil"></span></a>
+                <a class="btn btn-default" href="{% url 'post_remove' post_pk=post.pk %}"><span class="glyphicon glyphicon-remove"></span></a>
             {% endif %}
             <h1><a href="">{{ post.title }}</a></h1>
             <div class="date">
