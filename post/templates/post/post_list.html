@@ -5,8 +5,8 @@
         <div class="post">
             <h1><a href="{% url 'post_detail' post_pk=post.pk %}">{{ post.title }}</a></h1>
             <div class="date">
-                <p> Создан: {{ post.created_date }}</p>
-                <p> Автор: {{ post.author }}</p>
+                <p> Автор: {{ post.author }}, Создан: {{ post.created_date }}</p>
+                <p> Comments: {{ post.comment.count }} </p>
             </div>
 <!--            <p>{{ post.text|linebreaksbr }}</p>-->
         </div>

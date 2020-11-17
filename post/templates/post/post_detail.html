@@ -8,16 +8,21 @@
             {% endif %}
             <h1><a href="">{{ post.title }}</a></h1>
             <div class="date">
-                <p> Создан: {{ post.created_date }}</p>
                 <p> Автор: {{ post.author }}</p>
+                <p> Создан: {{ post.created_date }}</p>
             </div>
             <p>{{ post.text|linebreaksbr }}</p>
+
+            <h2 style="margin-top: 60px;"> Comments </h2>
             <div class="comments">
 <!--                <a class="btn btn-default" href="{% url 'post_remove' post_pk=post.pk %}"><span class="glyphicon glyphicon-remove"></span></a>-->
-                <h2> Comments </h2>
                 {% for comment in comments %}
+                    <hr>
                     <p class="date"> Автор: {{ comment.author }}, Создан: {{ comment.created_date }}</p>
-                    <p> Текст: {{ comment.text }}</p>
+                    <p> {{ comment.text }}</p>
+                    <hr>
+                {% empty %}
+                    <p>No comments here yet :(</p>
                 {% endfor %}
             </div>
         </div>
