@@ -12,5 +12,13 @@
                 <p> Автор: {{ post.author }}</p>
             </div>
             <p>{{ post.text|linebreaksbr }}</p>
+            <div class="date">
+<!--                <a class="btn btn-default" href="{% url 'post_remove' post_pk=post.pk %}"><span class="glyphicon glyphicon-remove"></span></a>-->
+            {% for comment in comments %}
+                <p> Создан: {{ comment.created_date }}</p>
+                <p> Автор: {{ comment.author }}</p>
+                <p> Текст: {{ comment.text }}</p>
+            {% endfor %}
+            </div>
         </div>
 {% endblock %}

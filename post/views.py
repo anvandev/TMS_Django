@@ -1,6 +1,6 @@
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404
-from .models import Post
+from .models import Post, Comment
 from .forms import PostForm
 from django.utils import timezone
 from django.shortcuts import redirect
@@ -13,7 +13,8 @@ def post_list(request):
 
 def post_detail(request, post_pk):
     post = get_object_or_404(Post, pk=post_pk)
-    return render(request, 'post/post_detail.html', {'post': post})
+    comments = Comment.objects.filter(post=post_pk)
+    return render(request, 'post/post_detail.html', {'post': post, 'comments': comments})
 
 
 def post_new(request):
@@ -49,3 +50,17 @@ def post_remove(request, post_pk):
     post = get_object_or_404(Post, pk=post_pk)
     post.delete()
     return redirect('post_list')
+
+
+# def comment_remove(request, comment_pk):
+#     comment = get_object_or_404(Comment, pk=comment_pk)
+#     comment.delete()
+#     post_pk = comment.post.pk
+#     return redirect('post_detail', post_pk=post_pk)
+
+
+# def comment_new(request):
+#     form = CommentForm()
+#
+# def comment_new(request, post_pk):
+#     if request.method == "POST":
