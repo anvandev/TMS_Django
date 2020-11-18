@@ -16,8 +16,8 @@
             <h2 style="margin-top: 60px;"> Comments </h2>
             <div class="comments">
 <!--                <a class="btn btn-default" href="{% url 'post_remove' post_pk=post.pk %}"><span class="glyphicon glyphicon-remove"></span></a>-->
+                <hr>
                 {% for comment in comments %}
-                    <hr>
                     <p class="date"> Автор: {{ comment.author }}, Создан: {{ comment.created_date }}</p>
                     <p> {{ comment.text }}</p>
                     <hr>
