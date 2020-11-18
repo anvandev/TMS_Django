@@ -15,6 +15,8 @@ def post_detail(request, post_pk):
     post = get_object_or_404(Post, pk=post_pk)
     comments = Comment.objects.filter(post=post_pk)
     comment_form = CommentForm()
+    post.view += 1
+    post.save()
     return render(request, 'post/post_detail.html', {'post': post, 'comments': comments, 'comment_form': comment_form})
 
 
@@ -89,3 +91,17 @@ def comment_edit(request, comment_pk):
     else:
         comment_form = CommentForm(instance=comment)
     return render(request, 'post/comment_edit.html', {'comment_form': comment_form})
+
+
+def post_like(request, post_pk):
+    post = get_object_or_404(Post, pk=post_pk)
+    post.like += 1
+    post.save()
+    return redirect('post_detail', post_pk=post.pk)
+
+
+def post_dislike(request, post_pk):
+    post = get_object_or_404(Post, pk=post_pk)
+    post.dislike += 1
+    post.save()
+    return redirect('post_detail', post_pk=post.pk)

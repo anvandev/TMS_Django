@@ -7,6 +7,9 @@ class Post(models.Model):
     title = models.CharField(max_length=56, verbose_name='Название')
     text = models.TextField(verbose_name='Текст')
     created_date = models.DateTimeField(default=timezone.now, verbose_name='Дата создания')
+    view = models.IntegerField(default=0, verbose_name='Просмотры')
+    like = models.IntegerField(default=0, verbose_name='Лайк')
+    dislike = models.IntegerField(default=0, verbose_name='Дизлайк')
 
     class Meta:
         verbose_name = ' Пост '
