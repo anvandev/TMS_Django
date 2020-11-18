@@ -74,3 +74,18 @@ def comment_new(request, post_pk):
     else:
         comment_form = PostForm()
     return render(request, 'post/post_detail.html', {'comment_form': comment_form})
+
+
+def comment_edit(request, comment_pk):
+    comment = get_object_or_404(Comment, pk=comment_pk)
+    if request.method == "POST":
+        comment_form = CommentForm(request.POST, instance=comment)
+        if comment_form.is_valid():
+            comment = comment_form.save(commit=False)
+            comment.author = request.user
+            comment.created_date = timezone.now()
+            comment.save()
+            return redirect('post_detail', post_pk=comment.post.pk)
+    else:
+        comment_form = CommentForm(instance=comment)
+    return render(request, 'post/comment_edit.html', {'comment_form': comment_form})

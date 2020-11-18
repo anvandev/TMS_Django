@@ -17,7 +17,7 @@
             <hr>
             <form action="{% url 'comment_new' post_pk=post.pk %}" method="POST" class="comment-form">{% csrf_token %}
                 {{ comment_form.as_p }}
-                <button type="submit" class="save btn btn-default">Save new comment</button>
+                <button type="submit" class="save btn btn-default">Add new comment</button>
             </form>
             <hr style="margin-top: 60px;">
             <div class="comments">
@@ -25,6 +25,7 @@
                     <p class="date"> Автор: {{ comment.author }}, Создан: {{ comment.created_date }}</p>
                     <p> {{ comment.text }}</p>
                     {% if user.is_authenticated and user == comment.author %}
+                    <a class="btn btn-default" href="{% url 'comment_edit' comment_pk=comment.pk %}"><span class="glyphicon glyphicon-pencil"></span></a>
                     <a class="btn btn-default" href="{% url 'comment_remove' comment_pk=comment.pk %}"><span class="glyphicon glyphicon-remove"></span></a>
                     {% endif %}
                     <hr>
