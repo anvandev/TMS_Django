@@ -15,11 +15,11 @@
 
             <h2 style="margin-top: 60px;"> Comments </h2>
             <hr>
-            <form action="{% url 'comment_new' post_pk=post.pk %}" method="POST" class="post-form">{% csrf_token %}
+            <form action="{% url 'comment_new' post_pk=post.pk %}" method="POST" class="comment-form">{% csrf_token %}
                 {{ comment_form.as_p }}
-                <button type="submit" class="save btn btn-default">Save</button>
+                <button type="submit" class="save btn btn-default">Save new comment</button>
             </form>
-            <hr>
+            <hr style="margin-top: 60px;">
             <div class="comments">
                 {% for comment in comments %}
                     <p class="date"> Автор: {{ comment.author }}, Создан: {{ comment.created_date }}</p>

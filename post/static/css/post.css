@@ -42,6 +42,14 @@ hr {
     width: 100%;
 }
 
+.comment-form textarea, .comment-form input {
+    width: 100%;
+    height:150px;
+    border-radius: 6px;
+    border-color: #bbbbbb;
+    border-width: 2px;
+}
+
 .top-menu, .top-menu:hover, .top-menu:visited {
     color: #ffffff;
     float: right;
