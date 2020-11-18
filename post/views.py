@@ -52,11 +52,11 @@ def post_remove(request, post_pk):
     return redirect('post_list')
 
 
-# def comment_remove(request, comment_pk):
-#     comment = get_object_or_404(Comment, pk=comment_pk)
-#     comment.delete()
-#     post_pk = comment.post.pk
-#     return redirect('post_detail', post_pk=post_pk)
+def comment_remove(request, comment_pk):
+    comment = get_object_or_404(Comment, pk=comment_pk)
+    comment.delete()
+    post_pk = comment.post.pk
+    return redirect('post_detail', post_pk=post_pk)
 
 
 # def comment_new(request):

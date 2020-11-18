@@ -6,7 +6,7 @@
             <h1><a href="{% url 'post_detail' post_pk=post.pk %}">{{ post.title }}</a></h1>
             <div class="date">
                 <p> Автор: {{ post.author }}, Создан: {{ post.created_date }}</p>
-                <p> Comments: {{ post.comment.count }} </p>
+                <p> Comments: {{ post.comments.count }} </p>
             </div>
 <!--            <p>{{ post.text|linebreaksbr }}</p>-->
         </div>
