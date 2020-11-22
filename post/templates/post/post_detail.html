@@ -2,19 +2,26 @@
 
 {% block content %}
         <div class="post">
-            {% if user.is_authenticated and user == post.author %}
-                <a class="btn btn-default" href="{% url 'post_edit' post_pk=post.pk %}"><span class="glyphicon glyphicon-pencil"></span></a>
-                <a class="btn btn-default" href="{% url 'post_remove' post_pk=post.pk %}"><span class="glyphicon glyphicon-remove"></span></a>
-            {% endif %}
-            <h1><a href="">{{ post.title }}</a></h1>
+            <div style="display: inline-block">
+                <h1><a href="">{{ post.title }}</a></h1>
+            </div>
+            <div style="display: inline-block">
+                {% if user.is_authenticated and user == post.author %}
+                    <a class="btn btn-default" href="{% url 'post_edit' post_pk=post.pk %}"><span class="glyphicon glyphicon-pencil"></span></a>
+                    <a class="btn btn-default" href="{% url 'post_remove' post_pk=post.pk %}"><span class="glyphicon glyphicon-remove"></span></a>
+                {% endif %}
+            </div>
+
             <div class="date">
                 <p> Автор: {{ post.author }}</p>
                 <p> Создан: {{ post.created_date }}</p>
             </div>
+
             <p>{{ post.text|linebreaksbr }}</p>
+
             <div>
                 <div style="display: inline-block">
-                    <a class="btn btn-default" href="{% url 'post_like' post_pk=post.pk %}">
+                    <a class="btn btn-default" href="{% url 'post_like' post_pk=post.pk like=1%}">
                         <span>Like</span>
                     </a>
                 </div>
@@ -24,7 +31,7 @@
                 </div>
 
                 <div style="display: inline-block">
-                    <a class="btn btn-default" href="{% url 'post_dislike' post_pk=post.pk %}">
+                    <a class="btn btn-default" href="{% url 'post_like' post_pk=post.pk like=2%}">
                         <span>Dislike</span>
                     </a>
                 </div>
@@ -34,7 +41,7 @@
                 </div>
             </div>
 
-            <h2 style="margin-top: 60px;"> Comments </h2>
+            <h2 style="margin-top: 60px;"> Комментарии </h2>
             <hr>
             <form action="{% url 'comment_new' post_pk=post.pk %}" method="POST" class="comment-form">{% csrf_token %}
                 {{ comment_form.as_p }}

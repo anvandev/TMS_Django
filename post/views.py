@@ -93,15 +93,18 @@ def comment_edit(request, comment_pk):
     return render(request, 'post/comment_edit.html', {'comment_form': comment_form})
 
 
-def post_like(request, post_pk):
+def post_like(request, post_pk, like):
     post = get_object_or_404(Post, pk=post_pk)
-    post.like += 1
+    if like == 1:
+        post.like += 1
+    if like == 2:
+        post.dislike += 1
     post.save()
-    return redirect('post_detail', post_pk=post.pk)
+    return redirect('post_detail', post_pk=post_pk)
 
 
-def post_dislike(request, post_pk):
-    post = get_object_or_404(Post, pk=post_pk)
-    post.dislike += 1
-    post.save()
-    return redirect('post_detail', post_pk=post.pk)
+# def post_dislike(request, post_pk):
+#     post = get_object_or_404(Post, pk=post_pk)
+#     post.dislike += 1
+#     post.save()
+#     return redirect('post_detail', post_pk=post.pk)
