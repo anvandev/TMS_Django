@@ -21,23 +21,29 @@
 
             <div>
                 <div style="display: inline-block">
-                    <a class="btn btn-default" href="{% url 'post_like' post_pk=post.pk like=1%}">
-                        <span>Like</span>
+                    <a href="{% url 'post_like' post_pk=post.pk like=1%}">
+                        <span style="color: lightseagreen"><i class="far fa-thumbs-up"></i></span>
                     </a>
+<!--                    <a class="btn btn-default" href="{% url 'post_like' post_pk=post.pk like=1%}">-->
+<!--                        <span>Like</span>-->
+<!--                    </a>-->
                 </div>
 
                 <div style="display: inline-block">
-                    {{post.like}}
+                    {{post.like}} &nbsp
                 </div>
 
                 <div style="display: inline-block">
-                    <a class="btn btn-default" href="{% url 'post_like' post_pk=post.pk like=2%}">
-                        <span>Dislike</span>
+                    <a href="{% url 'post_like' post_pk=post.pk like=2%}">
+                        <span style="color: rebeccapurple" ><i class="far fa-thumbs-down"></i> </span>
                     </a>
+<!--                    <a class="btn btn-default" href="{% url 'post_like' post_pk=post.pk like=2%}">-->
+<!--                        <span>Dislike</span>-->
+<!--                    </a>-->
                 </div>
 
                 <div style="display: inline-block">
-                    <a style="text-decoration: none; color: red">{{post.dislike}}</a>
+                    <a style="text-decoration: none; color: black">{{post.dislike}}</a>
                 </div>
             </div>
 
@@ -53,8 +59,8 @@
                     <p class="date"> Автор: {{ comment.author }}, Создан: {{ comment.created_date }}</p>
                     <p> {{ comment.text }}</p>
                     {% if user.is_authenticated and user == comment.author %}
-                    <a class="btn btn-default" href="{% url 'comment_edit' comment_pk=comment.pk %}"><span class="glyphicon glyphicon-pencil"></span></a>
-                    <a class="btn btn-default" href="{% url 'comment_remove' comment_pk=comment.pk %}"><span class="glyphicon glyphicon-remove"></span></a>
+                    <a class="date" href="{% url 'comment_edit' comment_pk=comment.pk %}"><span><i class="fas fa-pencil-alt"></i> редактировать </span></a>
+                    <a class="date" href="{% url 'comment_remove' comment_pk=comment.pk %}"><span><i class="fas fa-trash-alt"></i> удалить </span></a>
                     {% endif %}
                     <hr>
                 {% empty %}
