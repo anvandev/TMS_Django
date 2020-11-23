@@ -14,7 +14,7 @@
     <body>
         <div class="page-header">
             {% if user.is_authenticated %}
-                <a href="{% url 'post_new' %}" class="top-menu"> <span class="new-post"><i class="fas fa-plus"></i></span> </a>
+                <a href="{% url 'post_new' %}" class="top-menu"> <span><i class="fas fa-plus"></i></span> Новый пост </a>
             {% endif %}
             <h1><a href="/post/list/">Django Blog</a></h1>
         </div>

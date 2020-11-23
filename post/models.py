@@ -9,7 +9,7 @@ class Post(models.Model):
     created_date = models.DateTimeField(default=timezone.now, verbose_name='Дата создания')
     view = models.IntegerField(default=0, verbose_name='Просмотры')
     like = models.IntegerField(default=0, verbose_name='Лайк')
-    dislike = models.IntegerField(default=0, verbose_name='Дизлайк')
+    dislike = models.IntegerField(default=0, verbose_name='Дислайк')
 
     class Meta:
         verbose_name = ' Пост '
