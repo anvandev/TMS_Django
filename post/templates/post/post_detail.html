@@ -9,6 +9,8 @@
                 {% if user.is_authenticated and user == post.author %}
                     <a href="{% url 'post_edit' post_pk=post.pk %}"><span style="color: dimgrey"><i class="fas fa-pencil-alt"></i></span></a>
                     <a href="{% url 'post_remove' post_pk=post.pk %}"><span style="color: dimgrey"><i class="fas fa-trash-alt"></i></span></a>
+                    <a href="{% url 'publish' post_pk=post.pk %}"><span style="color: dimgrey"><i class="far fa-file-alt"></i></span></a>
+
                 {% endif %}
             </div>
 
@@ -45,6 +47,10 @@
                 <div style="display: inline-block">
                     <a style="text-decoration: none; color: black">{{post.dislike}}</a>
                 </div>
+            </div>
+
+            <div>
+                <p> Teги: {{ post.tag }} </p>
             </div>
 
             <h3 style="margin-top: 60px;"> Комментарии ({{ post.comments.count }}) </h3>

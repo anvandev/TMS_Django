@@ -10,6 +10,8 @@ class Post(models.Model):
     view = models.IntegerField(default=0, verbose_name='Просмотры')
     like = models.IntegerField(default=0, verbose_name='Лайк')
     dislike = models.IntegerField(default=0, verbose_name='Дислайк')
+    draft = models.BooleanField(default=True, verbose_name='Черновик')
+    tag = models.TextField(verbose_name='Тег')
 
     class Meta:
         verbose_name = ' Пост '
@@ -22,7 +24,7 @@ class Post(models.Model):
 class Comment(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE, verbose_name='Пост', related_name='comments')
     author = models.ForeignKey('auth.User', on_delete=models.CASCADE, verbose_name='Автор')
-    text = models.TextField(verbose_name='Комментарий')
+    text = models.TextField(verbose_name='Новый комментарий')
     created_date = models.DateTimeField(default=timezone.now, verbose_name='Дата создания')
 
     class Meta:

@@ -7,7 +7,7 @@ from django.shortcuts import redirect
 
 
 def post_list(request):
-    posts = Post.objects.all()
+    posts = Post.objects.filter(draft=False)
     return render(request, 'post/post_list.html', {'posts': posts})
 
 
@@ -101,6 +101,19 @@ def post_like(request, post_pk, like):
         post.dislike += 1
     post.save()
     return redirect('post_detail', post_pk=post_pk)
+
+
+def draft_list(request):
+    posts = Post.objects.filter(draft=True)
+    return render(request, 'post/post_list.html', {'posts': posts})
+
+
+def publish(request, post_pk):
+    post = get_object_or_404(Post, pk=post_pk)
+    post.draft = False
+    post.save()
+    return redirect('post_detail', post_pk=post_pk)
+
 
 
 # def post_dislike(request, post_pk):
