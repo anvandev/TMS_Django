@@ -2,13 +2,24 @@
 
 {% block content %}
     {% for post in posts %}
-        <div class="post">
-            <h1><a href="{% url 'post_detail' post_pk=post.pk %}">{{ post.title }}</a></h1>
-            <div class="date">
-                <p> Автор: {{ post.author }}, Создан: {{ post.created_date }}</p>
-                <p> Просмотры: {{ post.view }}, Комментарии: {{ post.comments.count }} </p>
+<!--        <div class="col-sm-6">-->
+        <div class="col-sm-6 col-md-5">
+<!--            <div class="card" style="width: 50rem;">-->
+            <div class="thumbnail">
+<!--                <div class="card-body">-->
+                <div class="caption">
+                    <div class="post">
+                        <h1><a href="{% url 'post_detail' post_pk=post.pk %}">{{ post.title }}</a></h1>
+                        <!--  <img src="..." class="card-img-top" alt="...">-->
+                        <div class="date">
+                            <p> Автор: {{ post.author }}, Создан: {{ post.created_date }}</p>
+                            <p> Просмотры: {{ post.view }}, Комментарии: {{ post.comments.count }} </p>
+                        </div>
+                        <p>{{ post.text|linebreaksbr|truncatechars:40 }}</p>
+                    </div>
+                </div>
             </div>
-<!--            <p>{{ post.text|linebreaksbr }}</p>-->
         </div>
     {% endfor %}
 {% endblock %}
+
