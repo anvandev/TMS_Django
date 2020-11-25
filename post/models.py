@@ -34,3 +34,14 @@ class Comment(models.Model):
 
     def __str__(self):
         return f'{self.post}:{self.author}:{self.pk} '
+
+
+# class Tag(models.Model):
+#     tag_name = models.CharField(max_length=24, verbose_name="Тэг")
+#
+#     class Meta:
+#         verbose_name = ' Тэг '
+#         verbose_name_plural = ' Тэги'
+#
+#     def __str__(self):
+#         return f'{self.tag_name}'
