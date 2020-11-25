@@ -50,7 +50,10 @@
                 </div>
 
                 <div>
-                    <p> Teги: {{ post.tag }} </p>
+                    <p> Teги: {% for tag in tags %}
+                        {{ tag.tag_name }}
+                        {% endfor %}
+                    </p>
                 </div>
 
                 <h3 style="margin-top: 60px;"> Комментарии ({{ post.comments.count }}) </h3>

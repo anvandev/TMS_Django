@@ -1,6 +1,6 @@
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404
-from .models import Post, Comment
+from .models import Post, Comment, Tag
 from .forms import PostForm, CommentForm
 from django.utils import timezone
 from django.shortcuts import redirect
@@ -8,16 +8,19 @@ from django.shortcuts import redirect
 
 def post_list(request):
     posts = Post.objects.filter(draft=False)
-    return render(request, 'post/post_list.html', {'posts': posts})
+    tags = Tag.objects.all()
+    return render(request, 'post/post_list.html', {'posts': posts, 'tags': tags})
 
 
 def post_detail(request, post_pk):
     post = get_object_or_404(Post, pk=post_pk)
+    tags = post.tag.all()
     comments = Comment.objects.filter(post=post_pk)
     comment_form = CommentForm()
     post.view += 1
     post.save()
-    return render(request, 'post/post_detail.html', {'post': post, 'comments': comments, 'comment_form': comment_form})
+    return render(request, 'post/post_detail.html',
+                  {'post': post, 'comments': comments, 'comment_form': comment_form, 'tags': tags})
 
 
 def post_new(request):
@@ -114,6 +117,11 @@ def publish(request, post_pk):
     post.save()
     return redirect('post_detail', post_pk=post_pk)
 
+
+def tag_list(request, tag_pk):
+    tag = get_object_or_404(Tag, pk=tag_pk)
+    posts = tag.posts.all()
+    return render(request, 'post/post_list.html', {'posts': posts})
 
 
 # def post_dislike(request, post_pk):

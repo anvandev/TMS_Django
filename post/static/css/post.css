@@ -1,6 +1,6 @@
 
 .page-header {
-    background-color: #2C9694;
+    background-color: #205067;
     margin-top: 0;
     padding: 20px 20px 20px 40px;
 }
@@ -10,6 +10,8 @@
     font-size: 46pt;
     text-decoration: none;
 }
+
+/*#2C9694*/
 
 .content {
     margin-left: 40px;

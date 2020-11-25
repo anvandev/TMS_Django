@@ -1,6 +1,21 @@
 {% extends 'post/base.html' %}
 
 {% block content %}
+
+    <div class="card" style="width: 65rem;">
+        <div class="thumbnail">
+            <div class="caption">
+                <div class="post">
+                    <p> Теги: {% for tag in tags %}
+                       <a href="{% url 'tag_list' tag_pk=tag.pk %}"> {{ tag.tag_name }} </a>
+                         {% endfor %}
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
     {% for post in posts %}
 <!--        <div class="col-sm-6">-->
 <!--        <div class="col-sm-6 col-md-5">-->
@@ -23,5 +38,6 @@
             </div>
         </div>
     {% endfor %}
+
 {% endblock %}
 
