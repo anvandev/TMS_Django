@@ -12,6 +12,7 @@ class Post(models.Model):
     dislike = models.IntegerField(default=0, verbose_name='Дислайк')
     draft = models.BooleanField(default=True, verbose_name='Черновик')
     tag = models.TextField(verbose_name='Тег')
+    image = models.ImageField(null=True, blank=True, upload_to="post/images/", verbose_name='Изображение')
 
     class Meta:
         verbose_name = ' Пост '

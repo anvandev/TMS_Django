@@ -22,7 +22,7 @@ def post_detail(request, post_pk):
 
 def post_new(request):
     if request.method == "POST":
-        form = PostForm(request.POST)
+        form = PostForm(request.POST, request.FILES or None)
         if form.is_valid():
             post = form.save(commit=False)
             post.author = request.user
@@ -37,7 +37,7 @@ def post_new(request):
 def post_edit(request, post_pk):
     post = get_object_or_404(Post, pk=post_pk)
     if request.method == "POST":
-        form = PostForm(request.POST, instance=post)
+        form = PostForm(request.POST, request.FILES or None, instance=post)
         if form.is_valid():
             post = form.save(commit=False)
             post.author = request.user
