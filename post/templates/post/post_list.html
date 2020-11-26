@@ -15,6 +15,18 @@
         </div>
     </div>
 
+    <div class="card" style="width: 65rem;">
+        <div class="thumbnail">
+            <div class="caption">
+                <div class="post">
+                    <p> Категории: {% for category in categories %}
+                       <a href="{% url 'category_posts' category_pk=category.pk %}"> {{ category.category_name }} </a>
+                         {% endfor %}
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
 
     {% for post in posts %}
 <!--        <div class="col-sm-6">-->

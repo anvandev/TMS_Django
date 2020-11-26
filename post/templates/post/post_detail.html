@@ -56,6 +56,18 @@
                     </p>
                 </div>
 
+                <div>
+                    <p>
+                        Категория: {{ post.category.category_name }}
+                    </p>
+                </div>
+
+                <div>
+                    <p>
+                        Рейтинг: {{ rating }}
+                    </p>
+                </div>
+
                 <h3 style="margin-top: 60px;"> Комментарии ({{ post.comments.count }}) </h3>
                 <hr>
                 <form action="{% url 'comment_new' post_pk=post.pk %}" method="POST" class="comment-form">{% csrf_token %}

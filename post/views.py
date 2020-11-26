@@ -1,6 +1,6 @@
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404
-from .models import Post, Comment, Tag
+from .models import Post, Comment, Tag, Category
 from .forms import PostForm, CommentForm
 from django.utils import timezone
 from django.shortcuts import redirect
@@ -9,18 +9,24 @@ from django.shortcuts import redirect
 def post_list(request):
     posts = Post.objects.filter(draft=False)
     tags = Tag.objects.all()
-    return render(request, 'post/post_list.html', {'posts': posts, 'tags': tags})
+    categories = Category.objects.all()
+    return render(request, 'post/post_list.html', {'posts': posts, 'tags': tags, 'categories': categories})
 
 
 def post_detail(request, post_pk):
     post = get_object_or_404(Post, pk=post_pk)
     tags = post.tag.all()
+    rating_values = post.rating.all()
+    rating = 0
+    for element in rating_values:
+        rating += element.rating
+    rating = rating / rating_values.count()
     comments = Comment.objects.filter(post=post_pk)
     comment_form = CommentForm()
     post.view += 1
     post.save()
     return render(request, 'post/post_detail.html',
-                  {'post': post, 'comments': comments, 'comment_form': comment_form, 'tags': tags})
+                  {'post': post, 'comments': comments, 'comment_form': comment_form, 'tags': tags, 'rating': rating})
 
 
 def post_new(request):
@@ -124,8 +130,16 @@ def tag_list(request, tag_pk):
     return render(request, 'post/post_list.html', {'posts': posts})
 
 
-# def post_dislike(request, post_pk):
-#     post = get_object_or_404(Post, pk=post_pk)
-#     post.dislike += 1
-#     post.save()
-#     return redirect('post_detail', post_pk=post.pk)
+def category_posts(request, category_pk):
+    category = get_object_or_404(Category, pk=category_pk)
+    posts = category.posts.all()
+    return render(request, 'post/post_list.html', {'posts': posts})
+
+
+def recommended_list(request):
+    posts = Post.objects.order_by('-like')[:10]
+    posts_by_views = Post.objects.order_by('-view')[:10]
+    posts_by_comments = Post.objects.order_by('-like')[:10]
+    return render(request, 'post/post_list.html', {'posts': posts})
+
+
