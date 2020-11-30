@@ -14,9 +14,9 @@ urlpatterns = [
     path('post/detail/like/<int:post_pk>/<int:like>/', views.post_like, name='post_like'),
     path('post/draft/list/', views.draft_list, name='draft_list'),
     path('post/publish/<int:post_pk>/', views.publish, name='publish'),
-    path('post/tag/list/<int:tag_pk>/', views.tag_list, name='tag_list'),
+    path('post/tag/posts/<int:tag_pk>/', views.tag_posts, name='tag_posts'),
     path('post/category/posts/<int:category_pk>/', views.category_posts, name='category_posts'),
-    path('post/recommended/list/', views.recommended_list, name='recommended_list'),
+    path('post/recommended/posts/<int:order>/', views.recommended_list, name='recommended_list'),
     # path('post/detail/<int:post_pk>/dislike/', views.post_dislike, name='post_dislike'),
 
 

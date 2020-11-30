@@ -2,33 +2,27 @@
 
 {% block content %}
 
-    <div class="card" style="width: 70rem; margin-bottom: 2px; padding-bottom: 2px">
-        <div class="thumbnail" style="margin-bottom: 2px; padding-bottom: 2px">
-            <div class="caption" style="margin-bottom: 2px; padding-bottom: 2px">
-                <div class="post" style="margin-bottom: 2px; padding-bottom: 2px">
-                    <p> <i class="far fa-folder-open"></i> Категории: {% for category in categories %}
-                       <a href="{% url 'category_posts' category_pk=category.pk %}" style="color: #417690"> {{ category.category_name }} </a>
-                         {% endfor %}
-                    </p>
-                </div>
-            </div>
-        </div>
-    </div>
 
-    <br>
 
-    <div class="card" style="width: 70rem; margin-bottom: 2px; padding-bottom: 2px">
-        <div class="thumbnail" style="margin-bottom: 2px; padding-bottom: 2px">
-            <div class="caption" style="margin-bottom: 2px; padding-bottom: 2px">
-                <div class="post" style="margin-bottom: 2px; padding-bottom: 2px">
-                    <p> Теги: {% for tag in tags %}
-                       <a href="{% url 'tag_posts' tag_pk=tag.pk %}" style="color: #417690"> {{ tag.tag_name }} </a>
-                         {% endfor %}
-                    </p>
-                </div>
-            </div>
-        </div>
-    </div>
+
+
+    {% if type_filter == 'tag_filter' %}
+        <h2> Посты с тегом: {{ tag.tag_name }} </h2>
+    {% elif type_filter == 'category_filter' %}
+        <h2> Посты с категорией: {{ category.category_name }} </h2>
+    {% else %}
+        <div class="btn-group">
+            <a class="btn btn-default" style="background: transparent; min-width: 180px;
+                border-bottom-left-radius: 25px; box-shadow: 0 0 5px rgba(0, 0, 0, 0.25);
+                border-width: 3px; "  href="{% url 'recommended_list' order=1 %}"> по лайкам </a>
+            <a class="btn btn-default" style="background: transparent; min-width: 180px;
+                box-shadow: 0 0 5px rgba(0, 0, 0, 0.25);
+                border-width: 3px; "  href="{% url 'recommended_list' order=2 %}"> по просмотрам </a>
+            <a class="btn btn-default" style="background: transparent; min-width: 180px;
+                border-bottom-right-radius: 25px; box-shadow: 0 0 5px rgba(0, 0, 0, 0.25);
+                border-width: 3px; "  href=""> по комментариям </a>
+        </div> <br> <br>
+    {% endif %}
 
     <br> <br>
 
@@ -73,4 +67,3 @@
     {% endfor %}
 
 {% endblock %}
-

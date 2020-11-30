@@ -1,16 +1,26 @@
 from django.http import HttpResponse
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from .models import Post, Comment, Tag, Category
 from .forms import PostForm, CommentForm
 from django.utils import timezone
-from django.shortcuts import redirect
 
 
 def post_list(request):
     posts = Post.objects.filter(draft=False)
     tags = Tag.objects.all()
     categories = Category.objects.all()
-    return render(request, 'post/post_list.html', {'posts': posts, 'tags': tags, 'categories': categories})
+    return render(request, 'post/post_list.html', {'posts': posts,
+                                                   'tags': tags,
+                                                   'categories': categories})
+
+
+def draft_list(request):
+    posts = Post.objects.filter(draft=True)
+    tags = Tag.objects.all()
+    categories = Category.objects.all()
+    return render(request, 'post/post_list.html', {'posts': posts,
+                                                   'tags': tags,
+                                                   'categories': categories})
 
 
 def post_detail(request, post_pk):
@@ -18,16 +28,20 @@ def post_detail(request, post_pk):
     tags = post.tag.all()
     rating_values = post.rating.all()
     rating = 0
-    for element in rating_values:
-        rating += element.rating
-    rating = rating / rating_values.count()
+    r_number_votes = rating_values.count()
+    if r_number_votes != 0:
+        for element in rating_values:
+            rating += element.rating
+        rating = rating / r_number_votes
     comments = Comment.objects.filter(post=post_pk)
     comment_form = CommentForm()
     post.view += 1
     post.save()
-    return render(request, 'post/post_detail.html',
-                  {'post': post, 'comments': comments, 'comment_form': comment_form, 'tags': tags, 'rating': rating})
-
+    return render(request, 'post/post_detail.html', {'post': post,
+                                                     'comments': comments,
+                                                     'comment_form': comment_form,
+                                                     'tags': tags, 'rating': rating,
+                                                     'r_number_votes': r_number_votes})
 
 def post_new(request):
     if request.method == "POST":
@@ -112,11 +126,6 @@ def post_like(request, post_pk, like):
     return redirect('post_detail', post_pk=post_pk)
 
 
-def draft_list(request):
-    posts = Post.objects.filter(draft=True)
-    return render(request, 'post/post_list.html', {'posts': posts})
-
-
 def publish(request, post_pk):
     post = get_object_or_404(Post, pk=post_pk)
     post.draft = False
@@ -124,22 +133,30 @@ def publish(request, post_pk):
     return redirect('post_detail', post_pk=post_pk)
 
 
-def tag_list(request, tag_pk):
+def tag_posts(request, tag_pk):
     tag = get_object_or_404(Tag, pk=tag_pk)
-    posts = tag.posts.all()
-    return render(request, 'post/post_list.html', {'posts': posts})
+    posts = tag.posts.filter(draft=False)
+    type_filter = 'tag_filter'
+    return render(request, 'post/post_list_filter.html', {'posts': posts,
+                                                          'tag': tag,
+                                                          'type_filter': type_filter})
 
 
 def category_posts(request, category_pk):
     category = get_object_or_404(Category, pk=category_pk)
-    posts = category.posts.all()
-    return render(request, 'post/post_list.html', {'posts': posts})
+    posts = category.posts.filter(draft=False)
+    type_filter = 'category_filter'
+    return render(request, 'post/post_list_filter.html', {'posts': posts,
+                                                          'category': category,
+                                                          'type_filter': type_filter})
 
 
-def recommended_list(request):
-    posts = Post.objects.order_by('-like')[:10]
-    posts_by_views = Post.objects.order_by('-view')[:10]
-    posts_by_comments = Post.objects.order_by('-like')[:10]
-    return render(request, 'post/post_list.html', {'posts': posts})
-
-
+def recommended_list(request, order):
+    if order == 1:
+        posts = Post.objects.filter(draft=False).order_by('-like')[:10]
+    elif order == 2:
+        posts = Post.objects.filter(draft=False).order_by('-view')[:10]
+    # posts_by_comments = Post.objects.order_by('-like')[:10]
+    type_filter = 'recommended_filter'
+    return render(request, 'post/post_list_filter.html', {'posts': posts,
+                                                          'type_filter': type_filter})
