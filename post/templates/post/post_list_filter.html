@@ -2,14 +2,12 @@
 
 {% block content %}
 
-
-
-
-
     {% if type_filter == 'tag_filter' %}
         <h2> Посты с тегом: {{ tag.tag_name }} </h2>
     {% elif type_filter == 'category_filter' %}
         <h2> Посты с категорией: {{ category.category_name }} </h2>
+    {% elif type_filter == 'favorites_filter' %}
+        <h2> Избранное </h2>
     {% else %}
         <div class="btn-group">
             <a class="btn btn-default" style="background: transparent; min-width: 180px;

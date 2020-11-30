@@ -43,6 +43,7 @@ def post_detail(request, post_pk):
                                                      'tags': tags, 'rating': rating,
                                                      'r_number_votes': r_number_votes})
 
+
 def post_new(request):
     if request.method == "POST":
         form = PostForm(request.POST, request.FILES or None)
@@ -159,4 +160,22 @@ def recommended_list(request, order):
     # posts_by_comments = Post.objects.order_by('-like')[:10]
     type_filter = 'recommended_filter'
     return render(request, 'post/post_list_filter.html', {'posts': posts,
+                                                          'type_filter': type_filter})
+
+
+def add_to_favorites(request, post_pk):
+    post = get_object_or_404(Post, pk=post_pk)
+    post.favorites = True
+    post.save()
+    return redirect('post_detail', post_pk=post_pk)
+
+
+def favorites(request):
+    posts = Post.objects.filter(favorites=True).filter(draft=False)
+    tags = Tag.objects.all()
+    categories = Category.objects.all()
+    type_filter = 'favorites_filter'
+    return render(request, 'post/post_list_filter.html', {'posts': posts,
+                                                          'tags': tags,
+                                                          'categories': categories,
                                                           'type_filter': type_filter})

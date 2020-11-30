@@ -17,7 +17,8 @@ urlpatterns = [
     path('post/tag/posts/<int:tag_pk>/', views.tag_posts, name='tag_posts'),
     path('post/category/posts/<int:category_pk>/', views.category_posts, name='category_posts'),
     path('post/recommended/posts/<int:order>/', views.recommended_list, name='recommended_list'),
-    # path('post/detail/<int:post_pk>/dislike/', views.post_dislike, name='post_dislike'),
+    path('post/add_to_favorites/<int:post_pk>/', views.add_to_favorites, name='add_to_favorites'),
+    path('post/favorites/', views.favorites, name='favorites'),
 
 
 ]

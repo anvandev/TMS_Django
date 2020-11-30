@@ -15,7 +15,10 @@
                             <span style="color: dimgrey"><i class="fas fa-trash-alt"></i></span></a>
                         <a class="btn btn-default" style="background: transparent" href="{% url 'publish' post_pk=post.pk %}">
                             <span style="color: dimgrey"><i class="far fa-file-alt"></i> Опубликовать </span></a>
-
+                        {% if post.draft == False %}
+                            <a class="btn btn-default" style="background: transparent" href="{% url 'add_to_favorites' post_pk=post.pk %}">
+                                    <span style="color: dimgrey"><i class="fas fa-star"></i> Добавить в избранное </span></a>
+                        {% endif %}
                     {% endif %}
                 </div>
 
