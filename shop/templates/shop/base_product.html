@@ -1,0 +1,29 @@
+{% load static %}
+
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title> Django </title>
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+        <link href="https://fonts.googleapis.com/css?family=Lobster&subset=latin,cyrillic" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" href="{% static 'css/shop.css' %}">
+        <script src="https://kit.fontawesome.com/94d106b433.js" crossorigin="anonymous"></script>
+    </head>
+
+    <body>
+        <div class="page-header">
+            <h1><a href="/product/list/">Django Shop</a></h1>
+        </div>
+
+        <div class="content container">
+            <div class="row">
+                <div>
+                    {% block content %}
+                    {% endblock %}
+                </div>
+            </div>
+        </div>
+
+    </body>
+</html>

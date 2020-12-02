@@ -1,0 +1,36 @@
+{% extends 'shop/base_product.html' %}
+
+{% block content %}
+
+    {% for product in products %}
+        <div class="card" style="width: 70rem;">
+            <div class="thumbnail" style="margin-bottom: 20px">
+                <div class="caption">
+                    <div class="post" style="margin-bottom: 5px; padding-bottom: 5px">
+
+                        <h1><a href=""> {{ product.name }}</a></h1>
+
+
+                        <div class="date">
+                            <p>
+                                <i class="fas fa-star"></i> вывести рейтинг
+                            </p>
+                        </div>
+
+                        <p> Цена: {{ product.price }}</p>
+                        <p> Описание: {{ product.description|linebreaksbr|truncatechars:120 }}</p>
+
+                        <div style="text-align: right">
+                            <a class="btn btn-default" style="background: transparent; text-align: right"
+                               href="">
+                                <span style="color: dimgrey"> Подробнее <i class="fas fa-angle-double-right"></i> </span>
+                            </a>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+
+{% endblock %}
