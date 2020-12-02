@@ -38,9 +38,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'mptt',
     'post',
     'shop',
 ]
+
+MPTT_ADMIN_LEVEL_INDENT = 40
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
