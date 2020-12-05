@@ -13,7 +13,18 @@
 
                         <div class="date">
                             <p>
-                                <i class="fas fa-star"></i> вывести рейтинг
+                                <i class="far fa-folder-open"></i>
+                                {% for category in categories %}
+                                    {{ category.name }}
+                                {% endfor %}
+                                <br/>
+                                Отзыв-оценка:
+                                {% for review in reviews %}
+                                    {{ review.text }} - {{ review.value }}
+                                {% endfor %}
+                                <br/>
+                                <i class="fas fa-star"></i>
+                                {{ product.rating }}
                             </p>
                         </div>
 

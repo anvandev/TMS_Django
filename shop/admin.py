@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Product, ProductCategory
+from .models import Product, ProductCategory, Review
 from mptt.admin import MPTTModelAdmin
 
 admin.site.register(Product)
@@ -12,3 +12,4 @@ class CategoryMPTTModelAdmin(MPTTModelAdmin):
 
 
 admin.site.register(ProductCategory, CategoryMPTTModelAdmin)
+admin.site.register(Review)
