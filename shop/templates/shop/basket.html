@@ -1,0 +1,39 @@
+{% extends 'shop/base_product.html' %}
+
+{% block content %}
+    <h1> Корзина </h1>
+    </br>
+
+    {% for product in products %}
+        <div class="card" style="width: 70rem;">
+            <div class="thumbnail" style="margin-bottom: 20px">
+                <div class="caption">
+                    <div class="post" style="margin-bottom: 5px; padding-bottom: 5px">
+
+                        <h1><a href=""> {{ product.product.name }}</a></h1>
+
+
+<!--                        <div class="date">-->
+<!--&lt;!&ndash;                            <p>&ndash;&gt;-->
+<!--&lt;!&ndash;                                <i class="fas fa-star"></i>&ndash;&gt;-->
+<!--&lt;!&ndash;                                {{ product.product.rating }}&ndash;&gt;-->
+<!--&lt;!&ndash;                            </p>&ndash;&gt;-->
+<!--                        </div>-->
+
+                        <p> Цена: {{ product.product.price }}</p>
+                        <p> Количество: {{ product.product_quantity }}</p>
+
+                        <div style="text-align: right">
+                            <a class="btn btn-default" style="background: transparent; text-align: right"
+                               href="">
+                                <span style="color: dimgrey"> Подробнее <i class="fas fa-angle-double-right"></i> </span>
+                            </a>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+
+{% endblock %}

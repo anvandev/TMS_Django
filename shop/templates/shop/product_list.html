@@ -14,14 +14,11 @@
                         <div class="date">
                             <p>
                                 <i class="far fa-folder-open"></i>
-                                {% for category in categories %}
-                                    {{ category.name }}
-                                {% endfor %}
+                                    {{ product.category.name }}
                                 <br/>
                                 Отзыв-оценка:
-                                {% for review in reviews %}
-                                    {{ review.text }} - {{ review.value }}
-                                {% endfor %}
+                                {{ product.review }}
+
                                 <br/>
                                 <i class="fas fa-star"></i>
                                 {{ product.rating }}
@@ -36,8 +33,11 @@
                                href="">
                                 <span style="color: dimgrey"> Подробнее <i class="fas fa-angle-double-right"></i> </span>
                             </a>
+                             <a class="btn btn-default" style="background: transparent; text-align: right"
+                               href="{% url 'add_to_basket' product_pk=product.pk %}">
+                                <span style="color: dimgrey"> В корзину <i style="color: green" class="fas fa-cart-plus"></i> </span>
+                            </a>
                         </div>
-
                     </div>
                 </div>
             </div>
