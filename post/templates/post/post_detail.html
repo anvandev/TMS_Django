@@ -35,11 +35,11 @@
                         <i class="far fa-folder-open"></i> {{ post.category.category_name }} &nbsp
                         <i class="far fa-eye"></i> {{ post.view }} &nbsp
                         <i class="fas fa-star"></i>
-                            {% if rating != 0 %}
-                                {{ rating }} <span style="color: #828282; font-size: 8pt"> / {{r_number_votes}} </span>
-                            {% else %}
-                                - <span style="color: #828282; font-size: 8pt"> / - </span>
-                            {% endif %}
+                                {% if post.rating.rating != 0 %}
+                                {{ post.rating.rating }} <span style="color: #828282; font-size: 8pt"> / {{ post.rating.number }}</span>
+                                {% else %}
+                                    <span style="color: #828282; font-size: 8pt"> нет оценок </span>
+                                {% endif %}
                     </p>
                 </div>
 

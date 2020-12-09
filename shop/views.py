@@ -23,11 +23,3 @@ def add_to_basket(request, product_pk):
     else:
         product_in_basket = ProductInBasket.objects.create(product=product, basket=basket)
     return redirect('basket')
-
-
-    # for product in products:
-    #     categories = product.categories.all
-    #     reviews = product.review.all
-    # return render(request, 'shop/product_list.html', {'products': products,
-    #                                                   'categories': categories,
-    #                                                   'reviews': reviews})

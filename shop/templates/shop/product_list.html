@@ -14,11 +14,14 @@
                         <div class="date">
                             <p>
                                 <i class="far fa-folder-open"></i>
-                                    {{ product.category.name }}
+                                {% for category in product.categories.all %}
+                                {{ category.name }}
+                                {% endfor %}
                                 <br/>
                                 Отзыв-оценка:
-                                {{ product.review }}
-
+                                {% for review in product.reviews.all %}
+                                {{ review.text }} - {{ review.value }};
+                                {% endfor %}
                                 <br/>
                                 <i class="fas fa-star"></i>
                                 {{ product.rating }}

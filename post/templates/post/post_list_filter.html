@@ -18,7 +18,7 @@
                 border-width: 3px; "  href="{% url 'recommended_list' order=2 %}"> по просмотрам </a>
             <a class="btn btn-default" style="background: transparent; min-width: 180px;
                 border-bottom-right-radius: 25px; box-shadow: 0 0 5px rgba(0, 0, 0, 0.25);
-                border-width: 3px; "  href=""> по комментариям </a>
+                border-width: 3px; "  href="{% url 'recommended_list' order=3 %}"> по комментариям </a>
         </div> <br> <br>
     {% endif %}
 
@@ -46,7 +46,12 @@
                                 <i class="far fa-folder-open"></i> {{ post.category.category_name }}
                             </p>
                             <p> <i class="far fa-eye"></i> {{ post.view }} &nbsp
-                                <i class="fas fa-star"></i> вывести рейтинг
+                                <i class="fas fa-star"></i>
+                                {% if post.rating.rating != 0 %}
+                                {{ post.rating.rating }} <span style="color: #828282; font-size: 8pt"> / {{ post.rating.number }}</span>
+                                {% else %}
+                                    <span style="color: #828282; font-size: 8pt"> нет оценок </span>
+                                {% endif %}
                             </p>
                         </div>
 

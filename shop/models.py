@@ -1,6 +1,7 @@
 from django.db import models
 from mptt.models import MPTTModel, TreeForeignKey
 from decimal import Decimal
+from django.db.models import Avg
 
 
 class Product(models.Model):
@@ -32,6 +33,8 @@ class Product(models.Model):
             for element in rating_values:
                 rating += element.value
             rating = rating / num_votes
+        # rating = Review.objects.filter(product=self.pk).aggregate(rating=Avg('value'))
+        # return rating
         return round(rating, 1)
 
 
@@ -72,7 +75,7 @@ class Review(models.Model):
     author = models.ForeignKey('auth.User', on_delete=models.CASCADE,
                                verbose_name='Автор')
     product = models.ForeignKey('Product', on_delete=models.CASCADE,
-                                verbose_name='Товар', related_name='review',
+                                verbose_name='Товар', related_name='reviews',
                                 blank=True, null=True)
 
     class Meta:

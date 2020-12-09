@@ -3,6 +3,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from .models import Post, Comment, Tag, Category
 from .forms import PostForm, CommentForm
 from django.utils import timezone
+from django.db.models import Count
 
 
 def post_list(request):
@@ -26,13 +27,6 @@ def draft_list(request):
 def post_detail(request, post_pk):
     post = get_object_or_404(Post, pk=post_pk)
     tags = post.tag.all()
-    rating_values = post.rating.all()
-    rating = 0
-    r_number_votes = rating_values.count()
-    if r_number_votes != 0:
-        for element in rating_values:
-            rating += element.rating
-        rating = rating / r_number_votes
     comments = Comment.objects.filter(post=post_pk)
     comment_form = CommentForm()
     post.view += 1
@@ -40,8 +34,7 @@ def post_detail(request, post_pk):
     return render(request, 'post/post_detail.html', {'post': post,
                                                      'comments': comments,
                                                      'comment_form': comment_form,
-                                                     'tags': tags, 'rating': rating,
-                                                     'r_number_votes': r_number_votes})
+                                                     'tags': tags})
 
 
 def post_new(request):
@@ -157,7 +150,8 @@ def recommended_list(request, order):
         posts = Post.objects.filter(draft=False).order_by('-like')[:10]
     elif order == 2:
         posts = Post.objects.filter(draft=False).order_by('-view')[:10]
-    # posts_by_comments = Post.objects.order_by('-like')[:10]
+    else:
+        posts = Post.objects.filter(draft=False).annotate(comments_num=Count('comments')).order_by('-comments_num')[:10]
     type_filter = 'recommended_filter'
     return render(request, 'post/post_list_filter.html', {'posts': posts,
                                                           'type_filter': type_filter})

@@ -3,19 +3,41 @@ from django.utils import timezone
 
 
 class Post(models.Model):
-    author = models.ForeignKey('auth.User', on_delete=models.CASCADE, verbose_name='Автор')
-    title = models.CharField(max_length=56, verbose_name='Название')
+    author = models.ForeignKey('auth.User', on_delete=models.CASCADE,
+                               verbose_name='Автор')
+    title = models.CharField(max_length=56,
+                             verbose_name='Название')
     text = models.TextField(verbose_name='Текст')
-    created_date = models.DateTimeField(default=timezone.now, verbose_name='Дата создания')
-    view = models.IntegerField(default=0, verbose_name='Просмотры')
-    like = models.IntegerField(default=0, verbose_name='Лайк')
-    dislike = models.IntegerField(default=0, verbose_name='Дислайк')
-    draft = models.BooleanField(default=True, verbose_name='Черновик')
-    favorites = models.BooleanField(default=False, verbose_name='Избранное')
-    tag = models.ManyToManyField('Tag', related_name='posts', verbose_name='Тег')
+    created_date = models.DateTimeField(default=timezone.now,
+                                        verbose_name='Дата создания')
+    view = models.IntegerField(default=0,
+                               verbose_name='Просмотры')
+    like = models.IntegerField(default=0,
+                               verbose_name='Лайк')
+    dislike = models.IntegerField(default=0,
+                                  verbose_name='Дислайк')
+    draft = models.BooleanField(default=True,
+                                verbose_name='Черновик')
+    favorites = models.BooleanField(default=False,
+                                    verbose_name='Избранное')
+    tag = models.ManyToManyField('Tag',
+                                 related_name='posts', verbose_name='Тег')
     category = models.ForeignKey('Category', default=1, on_delete=models.CASCADE,
                                  related_name='posts', verbose_name='Категория')
-    image = models.ImageField(null=True, blank=True, upload_to="post/images/", verbose_name='Изображение')
+    image = models.ImageField(null=True, blank=True,
+                              upload_to="post/images/",
+                              verbose_name='Изображение')
+
+    @property
+    def rating(self):
+        rating = 0
+        rating_values = Rating.objects.filter(post=self.pk)
+        num_votes = rating_values.count()
+        if num_votes != 0:
+            for element in rating_values:
+                rating += element.rating
+            rating = rating / num_votes
+        return {'rating': round(rating, 1), 'number': num_votes}
 
     class Meta:
         verbose_name = ' Пост '
@@ -26,10 +48,13 @@ class Post(models.Model):
 
 
 class Comment(models.Model):
-    post = models.ForeignKey(Post, on_delete=models.CASCADE, verbose_name='Пост', related_name='comments')
-    author = models.ForeignKey('auth.User', on_delete=models.CASCADE, verbose_name='Автор')
+    post = models.ForeignKey(Post, on_delete=models.CASCADE,
+                             verbose_name='Пост', related_name='comments')
+    author = models.ForeignKey('auth.User', on_delete=models.CASCADE,
+                               verbose_name='Автор')
     text = models.TextField(verbose_name='Новый комментарий')
-    created_date = models.DateTimeField(default=timezone.now, verbose_name='Дата создания')
+    created_date = models.DateTimeField(default=timezone.now,
+                                        verbose_name='Дата создания')
 
     class Meta:
         verbose_name = ' Комментарий '
@@ -40,7 +65,7 @@ class Comment(models.Model):
 
 
 class Rating(models.Model):
-    post = models.ForeignKey('Post', on_delete=models.CASCADE, verbose_name='Пост', related_name='rating')
+    post = models.ForeignKey('Post', on_delete=models.CASCADE, verbose_name='Пост', related_name='ratings')
     rating = models.IntegerField(verbose_name="Рейтинг")
 
     class Meta:
