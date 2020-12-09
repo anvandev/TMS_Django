@@ -1,7 +1,7 @@
 from django.db import models
 from mptt.models import MPTTModel, TreeForeignKey
 from decimal import Decimal
-from django.db.models import Avg
+from django.db.models import Avg, Count
 
 
 class Product(models.Model):
@@ -26,16 +26,11 @@ class Product(models.Model):
 
     @property
     def rating(self):
-        rating = 0
-        rating_values = Review.objects.filter(product=self.pk)
-        num_votes = rating_values.count()
-        if num_votes != 0:
-            for element in rating_values:
-                rating += element.value
-            rating = rating / num_votes
-        # rating = Review.objects.filter(product=self.pk).aggregate(rating=Avg('value'))
-        # return rating
-        return round(rating, 1)
+        # add {} in return to use rating and numbers at html
+        r = Review.objects.filter(product=self.pk).aggregate(ra=Avg('value'), num=Count('value'))
+        if not r['ra']:
+            r['ra'] = 0
+        return {'rating': round(r['ra'], 1), 'number': r['num']}
 
 
 class ProductCategory(MPTTModel):
@@ -96,6 +91,15 @@ class Basket(models.Model):
 
     def __str__(self):
         return f'{self.user}'
+
+    @property
+    def total_amount(self):
+        products_in_basket = ProductInBasket.objects.filter(basket=self.pk)
+        total_amount = 0
+        for product in products_in_basket:
+            total_amount += product.product.price * product.product_quantity
+        # total_amount = ProductInBasket.objects.filter(product=self.pk).aggregate()
+        return total_amount
 
 
 class ProductInBasket(models.Model):

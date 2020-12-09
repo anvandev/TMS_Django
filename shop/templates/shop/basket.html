@@ -1,7 +1,19 @@
 {% extends 'shop/base_product.html' %}
 
 {% block content %}
-    <h1> Корзина </h1>
+    <div style="display: inline-block">
+        <h1> Корзина &nbsp </h1>
+    </div>
+    <div style="display: inline-block">
+        <a class="btn btn-default" style="background: transparent; text-align: right"
+           href="{% url 'remove_all_from_basket' %}">
+            <span style="color: dimgrey"><i class="fas fa-trash-alt"></i> Очистить корзину </span>
+        </a>
+    </div>
+
+    <hr>
+    <h3> Общая стоимость: {{ basket.total_amount }}</h3>
+    <hr>
     </br>
 
     {% for product in products %}
@@ -11,23 +23,28 @@
                     <div class="post" style="margin-bottom: 5px; padding-bottom: 5px">
 
                         <h1><a href=""> {{ product.product.name }}</a></h1>
-
-
-<!--                        <div class="date">-->
-<!--&lt;!&ndash;                            <p>&ndash;&gt;-->
-<!--&lt;!&ndash;                                <i class="fas fa-star"></i>&ndash;&gt;-->
-<!--&lt;!&ndash;                                {{ product.product.rating }}&ndash;&gt;-->
-<!--&lt;!&ndash;                            </p>&ndash;&gt;-->
-<!--                        </div>-->
-
                         <p> Цена: {{ product.product.price }}</p>
-                        <p> Количество: {{ product.product_quantity }}</p>
+                        <p> Количество:
+                            <a class="btn btn-default" style="background: transparent; text-align: right"
+                               href="{% url 'reduce_product_from_basket' product_pk=product.pk %}">
+                                <span style="color: dimgrey"> - </span>
+                            </a>
+                            {{ product.product_quantity }}
+                            <a class="btn btn-default" style="background: transparent; text-align: right"
+                               href="">
+                                <span style="color: dimgrey"> + </span>
+                            </a>
+                        </p>
 
                         <div style="text-align: right">
                             <a class="btn btn-default" style="background: transparent; text-align: right"
                                href="">
                                 <span style="color: dimgrey"> Подробнее <i class="fas fa-angle-double-right"></i> </span>
                             </a>
+                             <a class="btn btn-default" style="background: transparent; text-align: right"
+                                 href="{% url 'remove_product_from_basket' product_pk=product.pk %}">
+                                 <span style="color: dimgrey"><i class="fas fa-trash-alt"></i> Убрать из корзины </span>
+                             </a>
                         </div>
 
                     </div>

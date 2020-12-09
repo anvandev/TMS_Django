@@ -1,5 +1,7 @@
 from django.db import models
 from django.utils import timezone
+from django.db.models import Avg, Count
+
 
 
 class Post(models.Model):
@@ -30,14 +32,10 @@ class Post(models.Model):
 
     @property
     def rating(self):
-        rating = 0
-        rating_values = Rating.objects.filter(post=self.pk)
-        num_votes = rating_values.count()
-        if num_votes != 0:
-            for element in rating_values:
-                rating += element.rating
-            rating = rating / num_votes
-        return {'rating': round(rating, 1), 'number': num_votes}
+        r = Rating.objects.filter(post=self.pk).aggregate(ra=Avg('rating'), num=Count('rating'))
+        if not r['ra']:
+            r['ra'] = 0
+        return {'rating': round(r['ra'], 1), 'number': r['num']}
 
     class Meta:
         verbose_name = ' Пост '

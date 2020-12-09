@@ -1,5 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Product, Basket, ProductInBasket, ProductCategory, Review
+from django.db.models import Sum
+
 
 
 def product_list(request):
@@ -10,16 +12,39 @@ def product_list(request):
 def basket(request):
     basket = get_object_or_404(Basket, user=request.user)
     products = ProductInBasket.objects.filter(basket=basket)
-    return render(request, 'shop/basket.html', {'products': products})
+    return render(request, 'shop/basket.html', {'products': products,
+                                                'basket': basket})
 
 
 def add_to_basket(request, product_pk):
     product = get_object_or_404(Product, pk=product_pk)
+    user_basket = get_object_or_404(Basket, user=request.user)
+    if ProductInBasket.objects.filter(basket=user_basket, product=product):
+        product_in_basket = ProductInBasket.objects.get(basket=user_basket, product=product)
+        product_in_basket.product_quantity += 1
+        product_in_basket.save()
+    else:
+        ProductInBasket.objects.create(product=product, basket=user_basket)
+    return redirect('basket')
+
+
+def reduce_product_from_basket(request, product_pk):
+    product = get_object_or_404(ProductInBasket, pk=product_pk)
+    product.product_quantity -= 1
+    product.save()
+    if product.product_quantity == 0:
+        product.delete()
+    return redirect('basket')
+
+
+def remove_product_from_basket(request, product_pk):
+    product = get_object_or_404(ProductInBasket, pk=product_pk)
+    product.delete()
+    return redirect('basket')
+
+
+def remove_all_from_basket(request):
     basket = get_object_or_404(Basket, user=request.user)
     products_in_basket = ProductInBasket.objects.filter(basket=basket)
-    if product in products_in_basket:
-        products_in_basket.product_quantity += 1
-        products_in_basket.save()
-    else:
-        product_in_basket = ProductInBasket.objects.create(product=product, basket=basket)
+    products_in_basket.delete()
     return redirect('basket')

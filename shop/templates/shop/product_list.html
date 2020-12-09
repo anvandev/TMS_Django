@@ -24,7 +24,13 @@
                                 {% endfor %}
                                 <br/>
                                 <i class="fas fa-star"></i>
-                                {{ product.rating }}
+
+                                {% if product.rating.rating %}
+                                    {{ product.rating.rating }} <span style="color: #828282; font-size: 8pt"> /
+                                    {{ product.rating.number }}</span>
+                                {% else %}
+                                    <span style="color: #828282; font-size: 8pt"> нет оценок </span>
+                                {% endif %}
                             </p>
                         </div>
 
