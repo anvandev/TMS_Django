@@ -48,3 +48,18 @@ def remove_all_from_basket(request):
     products_in_basket = ProductInBasket.objects.filter(basket=basket)
     products_in_basket.delete()
     return redirect('basket')
+
+
+def order(request):
+    basket = get_object_or_404(Basket, user=request.user)
+    products = basket.productinbasket_set.all()
+    return render(request, 'shop/order.html', {'products': products,
+                                               'basket': basket})
+
+
+# def order(request):
+#     basket = get_object_or_404(Basket, user=request.user)
+#     products = basket.productinbasket_set.all()
+#     ordered_products = Order.objects.create(products=products, user=request.user)
+#     return render(request, 'shop/order.html', {'ordered_products': ordered_products,
+#                                                'basket': basket})

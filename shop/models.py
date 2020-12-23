@@ -2,6 +2,7 @@ from django.db import models
 from mptt.models import MPTTModel, TreeForeignKey
 from decimal import Decimal
 from django.db.models import Avg, Count
+from django.utils import timezone
 
 
 class Product(models.Model):
@@ -119,3 +120,22 @@ class ProductInBasket(models.Model):
 
     def __str__(self):
         return f'{self.product.name}'
+
+
+# class Order(models.Model):
+#     products = models.ManyToManyField('Product', verbose_name='Товары')
+#     order_date = models.DateTimeField(default=timezone.now, verbose_name='Дата заказа')
+#     STATUS_CHOICES = (
+#         ('Обработка заказа', 'Обработка заказа'),
+#         ('Доставка', 'Доставка'),
+#         ('Получен', 'Получен'),
+#     )
+#     status = models.TextField(choices=STATUS_CHOICES, verbose_name='Статус заказа')
+#     user = models.ForeignKey('auth.User', on_delete=models.CASCADE, blank=True, null=True, verbose_name='Пользователь ')
+#
+#     class Meta:
+#         verbose_name = ' Заказ '
+#         verbose_name_plural = ' Заказы '
+#
+#     def __str__(self):
+#         return f'{self.user}'

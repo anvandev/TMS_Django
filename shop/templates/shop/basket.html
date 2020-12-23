@@ -13,6 +13,10 @@
 
     <hr>
     <h3> Общая стоимость: {{ basket.total_amount }}</h3>
+    <a class="btn btn-default" style="background: transparent; text-align: right"
+       href="{% url 'order' %}">
+        <span style="color: dimgrey"><i class="fas fa-receipt"></i> Оформить заказ  </span>
+    </a>
     <hr>
     </br>
 
