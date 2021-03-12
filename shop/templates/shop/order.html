@@ -5,7 +5,6 @@
         <h1> Заказ &nbsp </h1>
     </div>
 
-
     <hr>
     <h3> Общая стоимость: {{ basket.total_amount }}</h3>
     <hr>
@@ -15,16 +14,12 @@
             <div class="thumbnail" style="margin-bottom: 20px">
                 <div class="caption">
                     <div class="post" style="margin-bottom: 5px; padding-bottom: 5px">
-
                         <h1><a href=""> {{ product.product.name }}</a></h1>
                         <p> Цена: {{ product.product.price }}</p>
                         <p> Количество: {{ product.product_quantity }} </p>
-
-
                     </div>
                 </div>
             </div>
         </div>
     {% endfor %}
-
 {% endblock %}

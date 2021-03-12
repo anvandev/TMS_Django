@@ -1,5 +1,4 @@
 
-
 .page-header {
     background-color: #205067;
     margin-top: 0;
@@ -11,8 +10,6 @@
     font-size: 46pt;
     text-decoration: none;
 }
-
-/*#2C9694*/
 
 .content {
     margin-left: 40px;
@@ -69,14 +66,3 @@ hr {
 .post h1 a, .post h1 a:visited {
     color: #000000;
 }
-
-/*.icon-button {*/
-/*    color: #ffffff;*/
-/*    float: right;*/
-/*    margin-right: 20px;*/
-/*    width: 80px;*/
-/*    height: 80px;*/
-/*    !*border-radius: 50%;*!*/
-/*    !*border: 5px solid #ffffff;*!*/
-/*}*/
-

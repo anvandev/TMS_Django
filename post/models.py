@@ -3,7 +3,6 @@ from django.utils import timezone
 from django.db.models import Avg, Count
 
 
-
 class Post(models.Model):
     author = models.ForeignKey('auth.User', on_delete=models.CASCADE,
                                verbose_name='Автор')

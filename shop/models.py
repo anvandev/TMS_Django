@@ -1,8 +1,7 @@
-from django.db import models
-from mptt.models import MPTTModel, TreeForeignKey
 from decimal import Decimal
+from django.db import models
 from django.db.models import Avg, Count
-from django.utils import timezone
+from mptt.models import MPTTModel, TreeForeignKey
 
 
 class Product(models.Model):

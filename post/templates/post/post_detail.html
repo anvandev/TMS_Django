@@ -2,11 +2,11 @@
 
 {% block content %}
         <div class="col-md-8">
-
             <div class="post">
                 <div style="display: inline-block">
                     <h1><a href="">{{ post.title }}</a></h1>
                 </div>
+
                 <div style="display: inline-block">
                     {% if user.is_authenticated and user == post.author %}
                         <a href="{% url 'post_edit' post_pk=post.pk %}">
@@ -76,7 +76,6 @@
                         <a style="text-decoration: none; color: black">{{post.dislike}}</a>
                     </div>
                 </div>
-
 
                 <h3 style="margin-top: 60px; font-size: 24px"> Комментарии ({{ post.comments.count }}) </h3>
                 <hr>

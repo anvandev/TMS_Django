@@ -1,7 +1,5 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import Product, Basket, ProductInBasket, ProductCategory, Review
-from django.db.models import Sum
-
+from .models import Product, Basket, ProductInBasket
 
 
 def product_list(request):

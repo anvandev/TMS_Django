@@ -1,15 +1,12 @@
 {% extends 'shop/base_product.html' %}
 
 {% block content %}
-
     {% for product in products %}
         <div class="card" style="width: 70rem;">
             <div class="thumbnail" style="margin-bottom: 20px">
                 <div class="caption">
                     <div class="post" style="margin-bottom: 5px; padding-bottom: 5px">
-
                         <h1><a href=""> {{ product.name }}</a></h1>
-
 
                         <div class="date">
                             <p>
@@ -52,5 +49,4 @@
             </div>
         </div>
     {% endfor %}
-
 {% endblock %}

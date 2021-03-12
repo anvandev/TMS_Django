@@ -19,6 +19,4 @@ urlpatterns = [
     path('post/recommended/posts/<int:order>/', views.recommended_list, name='recommended_list'),
     path('post/add_to_favorites/<int:post_pk>/', views.add_to_favorites, name='add_to_favorites'),
     path('post/favorites/', views.favorites, name='favorites'),
-
-
 ]
